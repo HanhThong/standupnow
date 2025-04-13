@@ -16,13 +16,13 @@ COPY . .
 RUN npx expo export --platform web         
 
 # Stage 2: Production environment
-FROM nginx:alpine
+FROM nginx:1.27.4-alpine-slim
 
 # Copy nginx configuration
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Copy built files from builder stage
-COPY --from=builder /app/web-build /usr/share/nginx/html
+COPY --from=builder /app/dist /usr/share/nginx/html
 
 # Expose port 80
 EXPOSE 80
